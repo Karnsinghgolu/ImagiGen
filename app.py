@@ -40,11 +40,10 @@ def local_css(file_name):
         st.warning(f"CSS file '{file_name}' not found. Make sure it's in the same folder as the app.")
 
 # --- HUGGING FACE API SETUP ---
-try:
-    HF_API_TOKEN = st.secrets["HF_API_TOKEN"]
-except (FileNotFoundError, KeyError):
-    st.sidebar.warning("Hugging Face API token not found in secrets. Please enter it below.", icon="🔑")
-    HF_API_TOKEN = st.sidebar.text_input("Enter your Hugging Face API Token:", type="password")
+import streamlit as st # Make sure streamlit is imported
+
+# Get the token from Streamlit's secrets manager
+HF_API_TOKEN = st.secrets["HF_API_TOKEN"]
 
 # --- API Endpoints ---
 IMAGE_API_URL = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0"
