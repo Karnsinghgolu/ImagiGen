@@ -40,11 +40,10 @@ def local_css(file_name):
         st.warning(f"CSS file '{file_name}' not found. Make sure it's in the same folder as the app.")
 
 # --- HUGGING FACE API SETUP ---
-import streamlit as st # Make sure streamlit is imported
-
-# Get the token from Streamlit's secrets manager
-HF_API_TOKEN = st.secrets["HF_API_TOKEN"]
-
+# --- CONFIG ---
+HF_API_TOKEN = os.getenv("HF_API_TOKEN")  # safer: set as environment variable
+if not HF_API_TOKEN:
+    HF_API_TOKEN = st.text_input("Enter your Hugging Face API Token:", type="password")
 # --- API Endpoints ---
 IMAGE_API_URL = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0"
 TEXT_API_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2"
